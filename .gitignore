@@ -1,12 +1,101 @@
-*.class
+import java.awt.*; // abstract windows toolkit
+import javax.swing.*;
+import java.awt.event.*;
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+public class Form1 extends JFrame implements ActionListener {
 
-# Package Files #
-*.jar
-*.war
-*.ear
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+JTextField fullName = new JTextField(20);
+JRadioButton maleRadioButton = new JRadioButton("male");
+JRadioButton femaleRadioButton = new JRadioButton("female");
+JComboBox nationalityComboBox = new JComboBox();
+JButton submit = new JButton("submit");
+JButton clear = new JButton("clear");
+
+ButtonGroup rGroup = new ButtonGroup();
+
+
+public Form1(){
+
+setLayout(new FlowLayout());
+setSize(245,250);
+setTitle("GUI Form");
+setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+nationalityComboBox.addItem("Cypriot");
+nationalityComboBox.addItem("Nigerian");
+nationalityComboBox.addItem("Persian");
+nationalityComboBox.addItem("Iraq");
+nationalityComboBox.addItem("Turkish ");
+
+rGroup.add(maleRadioButton);
+rGroup.add(femaleRadioButton);
+
+add(new JLabel("Name, Surname : "));
+add(fullName);
+add(new JLabel("Gender : "));
+add(maleRadioButton);
+add(femaleRadioButton);
+add(new JLabel(""));
+add(new JLabel("Nationality : "));
+add(nationalityComboBox);
+add(submit);
+add(clear);
+
+submit.addActionListener(this);
+clear.addActionListener(this);
+
+
+setVisible(true);
+
+}
+
+
+public static void main(String[] args) {
+
+Form1 f1 = new Form1();
+
+}
+
+
+public void actionPerformed (ActionEvent action){
+
+String name;
+String gender="";
+String nationality="";
+
+if (action.getSource() == submit)
+{
+name = this.fullName.getText();
+
+if (this.maleRadioButton.isSelected())
+gender="male";
+else if (this.femaleRadioButton.isSelected())
+gender="female";
+
+if (this.nationalityComboBox.getSelectedIndex() == 0)
+nationality = "Cypriot";
+else if (this.nationalityComboBox.getSelectedIndex() == 1)
+nationality = "Nigerian";
+else if (this.nationalityComboBox.getSelectedIndex() == 2)
+nationality = "Persian";
+else if (this.nationalityComboBox.getSelectedIndex() == 3)
+nationality = "Iraq";
+else if (this.nationalityComboBox.getSelectedIndex() == 4)
+nationality = "Turkish";
+
+
+JOptionPane.showMessageDialog(null, "\n Name,Surname = "+ name+"" +
+"\n Gender = "+ gender + "" +
+"\n Nationality = " + nationality);
+}
+else if (action.getSource() == clear)
+{
+this.fullName.setText("");
+this.rGroup.clearSelection();
+this.nationalityComboBox.setSelectedIndex(-1);
+}
+
+
+}
+}
